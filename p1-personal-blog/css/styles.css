@@ -1,3 +1,7 @@
+/* navigation */
+@import "navigation.css";
+
+
 body {
     background: #fafbfc;
     font-size: 16px;
