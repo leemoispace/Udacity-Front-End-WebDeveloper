@@ -24,54 +24,47 @@
 */
 let sectionNavs = document.querySelectorAll("section");
 let NavTag = document.getElementById("navbar__list");
+let sectionNavPositions=[];
+let sectionNavLength = sectionNavs.length;
 
+// 1.build the nav get position info array
+sectionNavs.forEach((element,index)=>{
+    let sectionName=element.getAttribute("data-nav");
+    let scrollTarget=element.offsetTop;
+    let liTag=document.createElement('li');
+    liTag.setAttribute("class","nav"+index);
+    liTag.innerHTML=`<a onClick="scrollToSection(${scrollTarget})">${sectionName}</a>`;
+    NavTag.appendChild(liTag);
+})
 
-
-
-
-/**
- * End Global Variables
- * Start Helper Functions
- * 
-*/
-
+// 2.Scroll to anchor ID using scrollTO event
 function scrollToSection(sectionID) {
 	window.scrollTo({left:0, top:sectionID, behavior: 'smooth'});
 }
 
-/**
- * End Helper Functions
- * Begin Main Functions
- * 
-*/
+// 3.Add class 'active' to section when near top of viewport
+document.addEventListener("scroll", () => {
+	sectionNavPositions = [];
+	sectionNavs.forEach((element) => sectionNavPositions.push(element.getBoundingClientRect().top+50));
+	let addIndex = sectionNavPositions.findIndex((element) => element > 0);
+	for (let i = 0; i < sectionNavLength; i++) {
+		if (addIndex === i) {
+			document.querySelector(".nav" + addIndex).classList.add("active");
+			document.querySelector(`#section${addIndex + 1}`).classList.add("current-active-class");
+		} else {
+			document.querySelector(".nav" + i).classList.remove("active");
+			document.querySelector(`#section${i + 1}`).removeAttribute("current-active-class");
+		}
+	}
+});
 
-// 1.build the nav
-sectionNavs.forEach((element,index)=>{
-    let sectionName=element.getAttribute("data-nav");
-    let toOffSection=element.offsetTop+50;
-    let liTag=document.createElement('li');
-    liTag.setAttribute("class","nav"+index);
-    liTag.innerHTML=`<a onClick="scrollToSection(${toOffSection})">${sectionName}</a>`;
-    NavTag.appendChild(liTag)
-    console.log(sectionName)
-})
-
-// Add class 'active' to section when near top of viewport
-
-
-// Scroll to anchor ID using scrollTO event
-
-
-/**
- * End Main Functions
- * Begin Events
- * 
-*/
-
-// Build menu 
-
-// Scroll to section on link click
-
-// Set sections as active
-
-
+    // findIndex can solve below 
+    // currentPosition = this.scrollY;
+    // // moving window to find find which section r we in
+    // allSectionPositions=[0,...sectionNavPositions,document.body.scrollHeight];
+    // while(currentPosition>allSectionPositions[currentPositionIndex]){
+    //     currentPositionIndex++;
+    //     if(currentPosition<allSectionPositions[currentPositionIndex]){
+    //         document.querySelector(".nav" + parseInt(currentPositionIndex-1)).classList.add("active");
+	// 		//document.querySelector(`#section${currentPositionIndex + 1}`).classList.add("current-active-class");
+    //         break;
