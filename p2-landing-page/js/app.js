@@ -22,6 +22,11 @@
  * Define Global Variables
  * 
 */
+let sectionNavs = document.querySelectorAll("section");
+let NavTag = document.getElementById("navbar__list");
+
+
+
 
 
 /**
@@ -38,8 +43,16 @@
  * 
 */
 
-// build the nav
-
+// 1.build the nav
+sectionNavs.forEach((element,index)=>{
+    let sectionName=element.getAttribute("data-nav");
+    let toOffSection=element.offsetTop+50;
+    let liTag=document.createElement('li');
+    liTag.setAttribute("class","nav"+index);
+    liTag.innerHTML=`<a onClick="scrollToSection(${toOffSection})">${sectionName}</a>`;
+    NavTag.appendChild(liTag)
+    console.log(sectionName)
+})
 
 // Add class 'active' to section when near top of viewport
 
