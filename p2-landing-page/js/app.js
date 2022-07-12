@@ -35,7 +35,9 @@ let NavTag = document.getElementById("navbar__list");
  * 
 */
 
-
+function scrollToSection(sectionID) {
+	window.scrollTo({left:0, top:sectionID, behavior: 'smooth'});
+}
 
 /**
  * End Helper Functions
