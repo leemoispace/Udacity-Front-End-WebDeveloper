@@ -1,0 +1,31 @@
+.btn {
+    margin:20px auto;
+  }
+  
+  .btn a {
+    background: #02b3e4;
+    color: #fff;
+    text-align: center;
+    padding: 8px 24px;
+    margin: 6px auto;
+    font-size: 12px;
+    text-decoration: none;
+  }
+  
+  .btn a:hover {
+    background: #9b4dca;
+    color: #fff;
+  }
+  
+  .formBtn {
+    background: #02b3e4;
+    color: #fff;
+    padding: 8px 15px;
+    border: none;
+    height: 30px;
+    font-size: 12px;
+  }
+  .formBtn:hover {
+    background: #9b4dca;
+    color: #fff;
+  }
