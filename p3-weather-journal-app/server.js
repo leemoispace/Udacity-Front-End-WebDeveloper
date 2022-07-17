@@ -1,3 +1,9 @@
+//before running, run below in term
+// npm install cors   
+// npm install express
+// npm install body-parser
+// node server.js
+
 // Setup empty JS object to act as endpoint for all routes
 projectData = {};
 
@@ -26,9 +32,20 @@ app.use(express.static('website'));
 const port = 8000;
 
 const server = app.listen(port, listening);
-
 function listening() {
 	console.log("server running");
 	console.log(`running on localhost:${port}`);
 }
 
+// GET route, send data to page
+app.get("/all", sendData);
+function sendData(req, res) {
+	res.send(projectData);
+}
+
+// POST route, get data from page.
+app.post("/addWeatherData", addWeatherData);
+function addWeatherData(req, res) {
+	projectData = req.body;
+	res.send(projectData);
+}

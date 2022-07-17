@@ -1,9 +1,9 @@
 /* Global Variables */
 const API_KEY = "appid=a491419e0509010bdef0e12219d465eb&units=metric";
-//new api, key not working: https://openweathermap.org/api/one-call-3
-// const baseURL = "https://api.openweathermap.org/data/3.0/onecall?";
 
-//use old api to move on first: https://openweathermap.org/api/one-call-api
+//new api, key not working: https://openweathermap.org/api/one-call-3
+//const baseURL = "https://api.openweathermap.org/data/3.0/onecall?";
+//so use old api to move on first: https://openweathermap.org/api/one-call-api
 const baseURL = "https://api.openweathermap.org/data/2.5/onecall?";
 
 const cityURL="http://api.openweathermap.org/geo/1.0/direct?q="
@@ -13,11 +13,9 @@ let cords={}
 let d = new Date();
 let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
-/* Function to get Data from API*/
+// Function to get Data from API
 const getCityCords = async (cityURL, city, API_KEY) => {
     //get city coordinates: https://openweathermap.org/api/geocoding-api
-    //http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
-    //http://api.openweathermap.org/geo/1.0/direct?q=London&limit=1&appid={API key}
     const url = `${cityURL}${city}&limit=1&${API_KEY}`;
     const response = await fetch(url);//fetch return promise
     let geodata = await response.json();
@@ -29,26 +27,81 @@ const getCityCords = async (cityURL, city, API_KEY) => {
 const getWeatherData = async (baseURL, city, API_KEY) => {
     let geodata=await getCityCords(cityURL,city,API_KEY);
     //weather api: https://openweathermap.org/api/one-call-3
-    //Format:   https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
     const url = `${baseURL}lat=${geodata[0].lat}&lon=${geodata[0].lon}&exclude=minutely,hourly,daily,alerts&${API_KEY}`;
     //const response = await fetch(url);
     const response = await fetch(url);
     let data = await response.json();
-    console.log(data);
     return data
 }
-getWeatherData(baseURL,'dubai',API_KEY)
+//getWeatherData(baseURL,'dubai',API_KEY)
 
 
-// const testGetData=async()=>{
-//     // let testurl="https://api.openweathermap.org/data/3.0/onecall?lat=39.906217&lon=116.3912757&exclude=minutely,hourly,daily,alerts&appid=a491419e0509010bdef0e12219d465eb&units=metric"
-//     //using old version api:https://openweathermap.org/faq   https://openweathermap.org/api/one-call-api
-//     let testurl="http://api.openweathermap.org/data/2.5/weather?id=524901&appid=a491419e0509010bdef0e12219d465eb"
-//     const response = await fetch(testurl);
-//     let data = await response.json();
-//     console.log(data);
-//     return data
-// }
+document.getElementById("generate").addEventListener("click", startGenerate);
 
-// testGetData()
+function startGenerate() {
+	const city = document.getElementById("city").value;
+	const feelings = document.getElementById("feelings").value;
+    getWeatherData(baseURL,city,API_KEY)
+        .then(function (data) {
+                // Add data
+                console.log("AllData from api: ", data);
+                postDataApi("addWeatherData", {
+                    temperature: data.current.temp,
+                    date: convertDate(data.current.dt),
+                    userResponse: feelings,
+                });
+            })
+            .then(() => updateUI());
+}
 
+
+//Function to POST data
+const postDataApi = async (url = "", data = {}) => {
+	console.log("post weather data: ", data);
+	const response = await fetch(url, {
+		method: "POST",
+		credentials: "same-origin",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(data), // body data type must match "Content-Type" header
+	});
+
+	try {
+		const newData = await response.json();
+		console.log("post res: ", newData);
+	} catch (error) {
+		console.log("error", error);
+	}
+};
+
+//Function to update UI 
+const updateUI = async () => {
+	const request = await fetch("all");
+	try {
+		const data = await request.json();
+		console.log("updateUI: ", data);
+		document.getElementById("date").innerHTML = `Date: ${data.date}`;
+		document.getElementById("temp").innerHTML = `Temperature(°C): ${data.temperature}`;
+		document.getElementById("content").innerHTML = `Feelings: ${data.userResponse}`;
+	} catch (error) {
+		console.log("error", error);
+	}
+};
+
+// Convert date
+function convertDate(unixtimestamp) {
+	// Months array
+	var months_array = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+	// Convert timestamp to milliseconds
+	var date = new Date(unixtimestamp * 1000);
+	// Year
+	var year = date.getFullYear();
+	// Month
+	var month = months_array[date.getMonth()];
+	// Day
+	var day = date.getDate();
+	// Display date time in MM/dd/yyyy format
+	var convertedTime = month + "/" + day + "/" + year;
+	return convertedTime;
+}
