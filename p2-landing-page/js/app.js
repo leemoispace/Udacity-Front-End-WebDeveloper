@@ -68,3 +68,4 @@ document.addEventListener("scroll", () => {
     //         document.querySelector(".nav" + parseInt(currentPositionIndex-1)).classList.add("active");
 	// 		//document.querySelector(`#section${currentPositionIndex + 1}`).classList.add("current-active-class");
     //         break;
+
