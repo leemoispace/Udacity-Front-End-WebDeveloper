@@ -22,31 +22,32 @@
  * Define Global Variables
  * 
 */
-let sectionNavs = document.querySelectorAll("section");
-let NavTag = document.getElementById("navbar__list");
-let sectionNavPositions=[];
-let sectionNavLength = sectionNavs.length;
+const sectionNavs = document.querySelectorAll("section");
+const navTag = document.getElementById("navbar__list");
+const sectionNavLength = sectionNavs.length;
 
-// 1.build the nav get position info array
+// 1.Build the nav get position info array
 sectionNavs.forEach((element,index)=>{
-    let sectionName=element.getAttribute("data-nav");
-    let scrollTarget=element.offsetTop;
-    let liTag=document.createElement('li');
+    const sectionName=element.getAttribute("data-nav");
+    const scrollTarget=element.offsetTop;
+    const liTag=document.createElement('li');
     liTag.setAttribute("class","nav"+index);
-    liTag.innerHTML=`<a onClick="scrollToSection(${scrollTarget})">${sectionName}</a>`;
-    NavTag.appendChild(liTag);
+    liTag.innerHTML=`<a onClick="scrollToTargets(${scrollTarget})">${sectionName}</a>`;
+    navTag.appendChild(liTag);
 })
 
-// 2.Scroll to anchor ID using scrollTO event
-function scrollToSection(sectionID) {
+// 2.Scroll to targets ID using scrollTO event
+function scrollToTargets(sectionID) {
 	window.scrollTo({left:0, top:sectionID, behavior: 'smooth'});
 }
 
 // 3.Add class 'active' to section when near top of viewport
 document.addEventListener("scroll", () => {
-	sectionNavPositions = [];
-	sectionNavs.forEach((element) => sectionNavPositions.push(element.getBoundingClientRect().top+50));
-	let addIndex = sectionNavPositions.findIndex((element) => element > 0);
+	const sectionNavPositions = [];
+    // update all navs positions for every pixal scroll, 
+    // before the +50 is my test for the boundary conditions.test for the boundary changing moments considering the nav bar height.if dont need to control that accurate the experience dont differ.
+	sectionNavs.forEach((element) => sectionNavPositions.push(element.getBoundingClientRect().top));
+	const addIndex = sectionNavPositions.findIndex((element) => element > 0);
 	for (let i = 0; i < sectionNavLength; i++) {
 		if (addIndex === i) {
 			document.querySelector(".nav" + addIndex).classList.add("active");
@@ -58,14 +59,14 @@ document.addEventListener("scroll", () => {
 	}
 });
 
-    // findIndex can solve below 
-    // currentPosition = this.scrollY;
-    // // moving window to find find which section r we in
-    // allSectionPositions=[0,...sectionNavPositions,document.body.scrollHeight];
-    // while(currentPosition>allSectionPositions[currentPositionIndex]){
-    //     currentPositionIndex++;
-    //     if(currentPosition<allSectionPositions[currentPositionIndex]){
-    //         document.querySelector(".nav" + parseInt(currentPositionIndex-1)).classList.add("active");
-	// 		//document.querySelector(`#section${currentPositionIndex + 1}`).classList.add("current-active-class");
-    //         break;
+// findIndex can solve below, below codes not useful.just keep a record.
+// currentPosition = this.scrollY;
+// // moving window to find find which section r we in
+// allSectionPositions=[0,...sectionNavPositions,document.body.scrollHeight];
+// while(currentPosition>allSectionPositions[currentPositionIndex]){
+//     currentPositionIndex++;
+//     if(currentPosition<allSectionPositions[currentPositionIndex]){
+//         document.querySelector(".nav" + parseInt(currentPositionIndex-1)).classList.add("active");
+// 		//document.querySelector(`#section${currentPositionIndex + 1}`).classList.add("current-active-class");
+//         break;
 
