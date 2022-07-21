@@ -1,0 +1,359 @@
+/* navigation */
+@import "navigation.css";
+
+/* buttons */
+@import "buttons.css";
+
+/* utilities */
+@import "utilities.css";
+
+
+body {
+    background: #fafbfc;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+    font-family: 'Oleo Script', cursive;
+    font-size: 3em;
+    line-height: 1.2em;
+    margin: 0;
+}
+
+h2,
+h3,
+h4 {
+    font-family: 'Roboto', sans-serif;
+    color: #222;
+}
+
+h2 {
+    font-size: 2em;
+    font-weight: 400;
+    line-height: 1.2em;
+}
+
+h3 {
+    font-size: 1.5em;
+    line-height: 0.9em;
+}
+
+h4 {
+    font-size: 1.2em;
+    line-height: 0.9em;
+}
+
+blockquote {
+    font-family: 'Oleo Script', cursive;
+    font-size: 2em;
+}
+
+p,
+a {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.4em;
+    margin: 0;
+}
+
+a {
+    color: #02b3e4;
+}
+
+a:hover {
+    color: #9b4dca;
+}
+
+strong {
+    font-weight: 700;
+}
+
+.text-underline {
+    text-decoration: underline;
+}
+
+.highlighter {
+    background: yellow;
+    display: inline-block;
+}
+
+.borderRight {
+    border-right: none;
+}
+
+@media(min-width:720px) {
+    .borderRight {
+        border-right: 1px solid #ededed;
+    }
+}
+
+.borderBottom {
+    border-bottom: 1px solid #ededed;
+}
+
+.borderTop {
+    border-top: 1px solid #ededed;
+}
+
+.header {
+    padding: 20px;
+    background: #fff;
+}
+
+.category,
+.date {
+    font-style: italic;
+    font-weight: 700;
+    font-size: 0.7em;
+}
+
+.catOne {
+    color: #02b3e4;
+}
+
+.catTwo {
+    color: #02ccba;
+}
+
+.catThree {
+    color: #9b4dca;
+}
+
+.sidebar,
+.description {
+    padding: 24px;
+}
+
+.sidebar {
+    margin: 0 24px;
+}
+
+.description {
+    width: 100%;
+    font-size: 1.1em;
+}
+
+
+/* socialLink home */
+.socialLinks h4 {
+    margin: 20px 0 0;
+    padding: 0;
+}
+
+.socialLinks ul {
+    display: inline-block;
+    list-style-type: none;
+    margin: 4px 0;
+    padding: 0;
+}
+
+.socialLinks ul li {
+    text-align: center;
+    float: left;
+    margin: 10px 5px;
+}
+
+
+
+/* POSTS */
+.postFeature,
+.postMain {
+    min-width: 90%;
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+@media(min-width:720px) {
+
+    .postFeature,
+    .postMain {
+        min-width: 680px;
+        max-width: 85%;
+        margin: 0 auto;
+    }
+}
+
+@media(min-width:1400px) {
+
+    .postFeature,
+    .postMain {
+        min-width: 1399px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+}
+
+
+.postheadBkgd {
+    background-size: cover;
+    background-position: center center;
+    height: 40vh;
+    min-height: 480px;
+    width: 100%;
+}
+
+#handlebars {
+    background-image: url("../images/oldskool.jpg");
+}
+
+#drivetrain {
+    background-image: url("../images/gearfix.jpg");
+}
+
+#brakes {
+    background-image: url("../images/brakes2.jpg");
+}
+
+
+/* author */
+.authorGrid {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    grid-template-rows: 100%;
+    grid-gap: 15px;
+    width: 100%;
+}
+
+.authorPic {
+    margin: 20px auto;
+}
+
+.authorPic img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+}
+
+.authorCreds p {
+    font-size: 0.7em;
+    line-height: 1.5em;
+}
+
+.postDataGrid p,
+.postDataGrid span {
+    font-size: 12px;
+    /* force size */
+}
+
+.postText {
+    max-width: 800px;
+    margin: 50px auto;
+}
+
+.postText p {
+    line-height: 2em;
+    margin-bottom: 2em;
+}
+
+.postPic {
+    max-width: 800px;
+    margin: 50px auto;
+}
+
+.caption {
+    font-style: italic;
+    color: #333;
+    font-size: 0.8em;
+}
+
+figcaption.caption {
+    line-height: 2em;
+}
+
+/* post bottom stuff */
+.postSidebar {
+    background: #eaeaea;
+    padding: 15px;
+}
+
+.postSidebar ul,
+.relatedPosts ul {
+    list-style-type: none;
+    padding-left: 10px;
+}
+
+.postSidebar ul li,
+.relatedPosts ul li {
+    padding-bottom: 10px;
+}
+
+/* footer styles */
+.footerBox p {
+    font-size: 0.7em;
+    color: #ccc;
+}
+
+.footerBox a {
+    font-size: 0.7em;
+    color: #02ccba;
+}
+
+.footerBox a:hover {
+    color: #fff;
+}
+
+
+/* subscribe form in footer */
+.subscribe {
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+@media(min-width:720px) {
+    .subscribe {
+        height: 160px;
+    }
+
+}
+
+.subscribe h4 {
+    margin: 0;
+    padding-bottom: 5px;
+}
+
+.subscribe p {
+    padding-bottom: 5px;
+}
+
+.notice {
+    width: 100%;
+    font-size: 0.7em;
+    color: #eee;
+    margin: 5px 0;
+}
+
+.formEmail {
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    max-width: 200px;
+    color: #0F121F;
+}
+
+@media(min-width:720px) {
+    .formEmail {
+        padding: 8px 15px;
+        border: 1px solid #ccc;
+        width: 50%;
+        max-width: 300px;
+        color: #0F121F;
+    }
+}
+
+/* photo credits box */
+.creditBox {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 5px;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.credit {
+    font-size: 0.6em;
+    font-style: italic;
+    color: #555;
+}
