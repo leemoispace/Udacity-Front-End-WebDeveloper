@@ -1,13 +1,4 @@
 /* Global Variables */
-const API_KEY = "appid=a491419e0509010bdef0e12219d465eb&units=metric";
-
-//new api, key not working: https://openweathermap.org/api/one-call-3
-//const baseURL = "https://api.openweathermap.org/data/3.0/onecall?";
-//so use old api to move on first: https://openweathermap.org/api/one-call-api
-const baseURL = "https://api.openweathermap.org/data/2.5/onecall?";
-
-const cityURL="http://api.openweathermap.org/geo/1.0/direct?q="
-let cords={}
 
 // Create a new date instance dynamically with JS
 let d = new Date();
