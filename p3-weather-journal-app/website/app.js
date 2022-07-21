@@ -2,7 +2,7 @@ const d = new Date();
 const newDate = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
 
 // Function to get Data from API
-//get city coordinates: https://openweathermap.org/api/geocoding-api
+// Get city coordinates: https://openweathermap.org/api/geocoding-api
 const getCityCords = async (cityURL, city, API_KEY) => {
   const url = `${cityURL}${city}&limit=1&${API_KEY}`;
   const response = await fetch(url);
@@ -18,24 +18,7 @@ const getWeatherData = async (baseURL, city, API_KEY) => {
   return data;
 };
 
-document.getElementById("generate").addEventListener("click", startGenerate);
-
-function startGenerate() {
-  const city = document.getElementById("city").value;
-  const feelings = document.getElementById("feelings").value;
-  getWeatherData(baseURL, city, API_KEY)
-    .then(function (data) {
-      // Add data
-      postDataApi("addWeatherData", {
-        temperature: data.current.temp,
-        date: convertDate(data.current.dt),
-        userResponse: feelings,
-      });
-    })
-    .then(() => updateUI());
-}
-
-//Function to POST data
+// Function to POST data
 const postDataApi = async (url = "", data = {}) => {
   const response = await fetch(url, {
     method: "POST",
@@ -53,24 +36,7 @@ const postDataApi = async (url = "", data = {}) => {
   }
 };
 
-//Function to update UI
-const updateUI = async () => {
-  const request = await fetch("all");
-  try {
-    const data = await request.json();
-    document.getElementById("date").innerHTML = `Date: ${data.date}`;
-    document.getElementById(
-      "temp"
-    ).innerHTML = `Temperature(°C): ${data.temperature}`;
-    document.getElementById(
-      "content"
-    ).innerHTML = `Feelings: ${data.userResponse}`;
-  } catch (error) {
-    console.warn("error:", error.message);
-  }
-};
-
-// Convert date, get from: https://stackoverflow.com/a/6078873
+// Function to convert date, get from: https://stackoverflow.com/a/6078873
 function convertDate(unixtimestamp) {
   // Months array
   const months_array = [
@@ -98,4 +64,38 @@ function convertDate(unixtimestamp) {
   // Display date time in MM/dd/yyyy format
   const convertedTime = month + "/" + day + "/" + year;
   return convertedTime;
+}
+
+// Function to update UI
+const updateUI = async () => {
+  const request = await fetch("all");
+  try {
+    const data = await request.json();
+    document.getElementById("date").innerHTML = `Date: ${data.date}`;
+    document.getElementById(
+      "temp"
+    ).innerHTML = `Temperature(°C): ${data.temperature}`;
+    document.getElementById(
+      "content"
+    ).innerHTML = `Feelings: ${data.userResponse}`;
+  } catch (error) {
+    console.warn("error:", error.message);
+  }
+};
+
+document.getElementById("generate").addEventListener("click", startGenerate);
+
+function startGenerate() {
+  const city = document.getElementById("city").value;
+  const feelings = document.getElementById("feelings").value;
+  getWeatherData(baseURL, city, API_KEY)
+    .then(function (data) {
+      // Add data
+      postDataApi("addWeatherData", {
+        temperature: data.current.temp,
+        date: convertDate(data.current.dt),
+        userResponse: feelings,
+      });
+    })
+    .then(() => updateUI());
 }
