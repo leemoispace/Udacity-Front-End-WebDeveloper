@@ -1,30 +1,22 @@
-/* Global Variables */
-
-// Create a new date instance dynamically with JS
-let d = new Date();
-let newDate = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
+const d = new Date();
+const newDate = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
 
 // Function to get Data from API
+//get city coordinates: https://openweathermap.org/api/geocoding-api
 const getCityCords = async (cityURL, city, API_KEY) => {
-  //get city coordinates: https://openweathermap.org/api/geocoding-api
   const url = `${cityURL}${city}&limit=1&${API_KEY}`;
-  const response = await fetch(url); //fetch return promise
-  let geodata = await response.json();
-  //response format as above doc
-  console.log(geodata[0].lat, geodata[0].lon);
+  const response = await fetch(url);
+  const geodata = await response.json();
   return geodata;
 };
 
 const getWeatherData = async (baseURL, city, API_KEY) => {
-  let geodata = await getCityCords(cityURL, city, API_KEY);
-  //weather api: https://openweathermap.org/api/one-call-3
+  const geodata = await getCityCords(cityURL, city, API_KEY);
   const url = `${baseURL}lat=${geodata[0].lat}&lon=${geodata[0].lon}&exclude=minutely,hourly,daily,alerts&${API_KEY}`;
-  //const response = await fetch(url);
   const response = await fetch(url);
-  let data = await response.json();
+  const data = await response.json();
   return data;
 };
-//getWeatherData(baseURL,'dubai',API_KEY)
 
 document.getElementById("generate").addEventListener("click", startGenerate);
 
@@ -34,7 +26,6 @@ function startGenerate() {
   getWeatherData(baseURL, city, API_KEY)
     .then(function (data) {
       // Add data
-      console.log("AllData from api: ", data);
       postDataApi("addWeatherData", {
         temperature: data.current.temp,
         date: convertDate(data.current.dt),
@@ -46,21 +37,19 @@ function startGenerate() {
 
 //Function to POST data
 const postDataApi = async (url = "", data = {}) => {
-  console.log("post weather data: ", data);
   const response = await fetch(url, {
     method: "POST",
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data), // body data type must match "Content-Type" header
+    body: JSON.stringify(data),
   });
 
   try {
     const newData = await response.json();
-    console.log("post res: ", newData);
   } catch (error) {
-    console.log("error", error);
+    console.warn("error:", error.message);
   }
 };
 
@@ -69,7 +58,6 @@ const updateUI = async () => {
   const request = await fetch("all");
   try {
     const data = await request.json();
-    console.log("updateUI: ", data);
     document.getElementById("date").innerHTML = `Date: ${data.date}`;
     document.getElementById(
       "temp"
@@ -78,14 +66,14 @@ const updateUI = async () => {
       "content"
     ).innerHTML = `Feelings: ${data.userResponse}`;
   } catch (error) {
-    console.log("error", error);
+    console.warn("error:", error.message);
   }
 };
 
-// Convert date
+// Convert date, get from: https://stackoverflow.com/a/6078873
 function convertDate(unixtimestamp) {
   // Months array
-  var months_array = [
+  const months_array = [
     "Jan",
     "Feb",
     "Mar",
@@ -100,14 +88,14 @@ function convertDate(unixtimestamp) {
     "Dec",
   ];
   // Convert timestamp to milliseconds
-  var date = new Date(unixtimestamp * 1000);
+  const date = new Date(unixtimestamp * 1000);
   // Year
-  var year = date.getFullYear();
+  const year = date.getFullYear();
   // Month
-  var month = months_array[date.getMonth()];
+  const month = months_array[date.getMonth()];
   // Day
-  var day = date.getDate();
+  const day = date.getDate();
   // Display date time in MM/dd/yyyy format
-  var convertedTime = month + "/" + day + "/" + year;
+  const convertedTime = month + "/" + day + "/" + year;
   return convertedTime;
 }
