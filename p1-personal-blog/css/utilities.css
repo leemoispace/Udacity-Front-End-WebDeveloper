@@ -1,96 +1,95 @@
 .text-center {
-    text-align: center;
+  text-align: center;
 }
 
 .text-right {
-    text-align: right;
+  text-align: right;
 }
 
 .text-res-right,
 .text-res-left {
-    text-align: center;
+  text-align: center;
 }
 
-@media(min-width:720px) {
-    .text-res-right {
-        text-align: right;
-    }
+@media (min-width: 720px) {
+  .text-res-right {
+    text-align: right;
+  }
 
-    .text-res-left {
-        text-align: left;
-    }
+  .text-res-left {
+    text-align: left;
+  }
 }
 
 .row {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .responsiveImage {
-    max-width: 100%;
-    height: auto;
+  max-width: 100%;
+  height: auto;
 }
 
 .relative {
-    position: relative;
+  position: relative;
 }
 
 .floatRight {
-    float: right;
+  float: right;
 }
 
 .floatLeft {
-    float: left;
+  float: left;
 }
 
-
 .mt-15 {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 
 .my-15 {
-    margin-top: 15px;
-    margin-bottom: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .mx-20 {
-    margin-left: 20px;
-    margin-right: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .mx-40 {
-    margin-left: 40px;
-    margin-right: 40px;
+  margin-left: 40px;
+  margin-right: 40px;
 }
 
 .p-15 {
-    padding: 15px;
+  padding: 15px;
 }
 
 .pt-15 {
-    padding-top: 15px;
+  padding-top: 15px;
 }
 
 .pb-15 {
-    padding-bottom: 15px;
+  padding-bottom: 15px;
 }
 
 .pb-30 {
-    padding-bottom: 30px;
+  padding-bottom: 30px;
 }
 
 .blueText {
-    color: #02b3e4;
+  color: #02b3e4;
 }
 
 .greenText {
-    color: #02ccba;
+  color: #02ccba;
 }
 
 .purpleText {
-    color: #9b4dca;
+  color: #9b4dca;
 }
 
 .grayText {
-    color: #444;
+  color: #444;
 }
