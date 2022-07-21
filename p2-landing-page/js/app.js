@@ -37,8 +37,8 @@ sectionNavs.forEach((element, index) => {
 });
 
 // 2.Scroll to targets ID using scrollTO event
-function scrollToTargets(sectionID) {
-  window.scrollTo({ left: 0, top: sectionID, behavior: "smooth" });
+function scrollToTargets(scrollTarget) {
+  window.scrollTo({ left: 0, top: scrollTarget, behavior: "smooth" });
 }
 
 // 3.Add class 'active' to section when near top of viewport
