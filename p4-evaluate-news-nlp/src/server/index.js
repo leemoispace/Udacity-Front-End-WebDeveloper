@@ -28,7 +28,13 @@ app.listen(PORT, "0.0.0.0", function () {
   console.log(`Running on localhost: ${PORT}`);
 });
 
-
+// routes for client side functions
 app.get("/getApiKey", function (req, res) {
   res.send(api_key);
+});
+
+app.post("/postData", function (req, res) {
+  articleData = req.body;
+  console.log("data posted to server");
+  return articleData;
 });
