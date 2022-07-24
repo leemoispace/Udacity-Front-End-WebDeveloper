@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
 
+articleData = {};
+
 // Set up API key.
 dotenv.config();
 api_key = {
@@ -37,4 +39,8 @@ app.post("/postData", function (req, res) {
   articleData = req.body;
   console.log("data posted to server");
   return articleData;
+});
+
+app.get("/getData", function (req, res) {
+  res.send(articleData);
 });

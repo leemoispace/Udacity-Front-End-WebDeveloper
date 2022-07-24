@@ -1,6 +1,15 @@
 import { checkForName } from "../js/nameChecker";
 let formText;
 
+//UI elements
+let resultsId = document.getElementById("results");
+let modelId = document.getElementById("model");
+let agreementId = document.getElementById("agreement");
+let subjectivityId = document.getElementById("subjectivity");
+let confidenceId = document.getElementById("confidence");
+let ironyId = document.getElementById("irony");
+let scoreTagId = document.getElementById("score_tag");
+
 // 1.Function to GET the api key from server side
 async function getApiKey() {
   const response = await fetch("/getApiKey");
@@ -27,7 +36,6 @@ async function getApiCall(apiKey) {
   const apiCall = `https://api.meaningcloud.com/sentiment-2.1?key=${apiKey}&lang=auto&url=${formText}`;
   const response = await fetch(apiCall);
   try {
-    //https://learn.meaningcloud.com/developer/sentiment-analysis/2.1/doc/response
     const data = await response.json();
     return data;
   } catch (error) {
@@ -47,6 +55,23 @@ const postData = async (url = "", data = {}) => {
   });
 };
 
+// 5.Function to update UI after server get the response, format in: https://learn.meaningcloud.com/developer/sentiment-analysis/2.1/doc/response
+async function updateUI() {
+  let request = await fetch("/getData");
+  try {
+    let result = await request.json();
+    resultsId.innerHTML = "Results";
+    modelId.innerHTML = "Model: " + result.model;
+    agreementId.innerHTML = "Agreement: " + result.agreement;
+    subjectivityId.innerHTML = "Subjectivity: " + result.subjectivity;
+    confidenceId.innerHTML = "Confidence: " + result.confidence + "%";
+    ironyId.innerHTML = "Irony: " + result.irony;
+    scoreTagId.innerHTML = "Score tag: " + result.score_tag;
+  } catch (error) {
+    console.warn("Error updateUI:", error);
+  }
+}
+
 // Main function to handle submitted input
 function handleSubmit() {
   // check what text was put into the form field
@@ -61,6 +86,9 @@ function handleSubmit() {
         })
         .then((data) => {
           postData("/postData", data);
+        })
+        .then(() => {
+          updateUI();
         });
     } catch (error) {
       console.warn("invalid url", error);
