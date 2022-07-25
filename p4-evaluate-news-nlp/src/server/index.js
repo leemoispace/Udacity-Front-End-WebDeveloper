@@ -37,7 +37,7 @@ app.get("/getApiKey", function (req, res) {
 
 app.post("/postData", function (req, res) {
   articleData = req.body;
-  console.log("data posted to server");
+  console.log("Data posted to server");
   return articleData;
 });
 
