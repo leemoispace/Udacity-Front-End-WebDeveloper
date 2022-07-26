@@ -1,14 +1,13 @@
 import { checkForName } from "../js/nameChecker";
-let formText;
 
 //UI elements
-let resultsId = document.getElementById("results");
-let modelId = document.getElementById("model");
-let agreementId = document.getElementById("agreement");
-let subjectivityId = document.getElementById("subjectivity");
-let confidenceId = document.getElementById("confidence");
-let ironyId = document.getElementById("irony");
-let scoreTagId = document.getElementById("score_tag");
+const resultsId = document.getElementById("results");
+const modelId = document.getElementById("model");
+const agreementId = document.getElementById("agreement");
+const subjectivityId = document.getElementById("subjectivity");
+const confidenceId = document.getElementById("confidence");
+const ironyId = document.getElementById("irony");
+const scoreTagId = document.getElementById("score_tag");
 
 // 1.Function to GET the api key from server side
 async function getApiKey() {
@@ -59,7 +58,7 @@ const postData = async (url = "", data = {}) => {
 async function updateUI() {
   let request = await fetch("/getData");
   try {
-    let result = await request.json();
+    const result = await request.json();
     resultsId.innerHTML = "Results";
     modelId.innerHTML = "Model: " + result.model;
     agreementId.innerHTML = "Agreement: " + result.agreement;
@@ -75,7 +74,7 @@ async function updateUI() {
 // Main function to handle submitted input
 function handleSubmit() {
   // check what text was put into the form field
-  formText = document.getElementById("url").value;
+  const formText = document.getElementById("url").value;
   const urlCheck = checkURL(formText);
 
   if (urlCheck) {
