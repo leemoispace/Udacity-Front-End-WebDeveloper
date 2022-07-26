@@ -31,7 +31,7 @@ function checkURL(url) {
 }
 
 // 3.Function to fetch api data, https://learn.meaningcloud.com/developer/sentiment-analysis/2.1/doc/request
-async function getApiCall(apiKey) {
+async function getApiCall(apiKey, formText) {
   const apiCall = `https://api.meaningcloud.com/sentiment-2.1?key=${apiKey}&lang=auto&url=${formText}`;
   const response = await fetch(apiCall);
   try {
@@ -81,7 +81,7 @@ function handleSubmit() {
     try {
       getApiKey()
         .then((apiKey) => {
-          return getApiCall(apiKey.api);
+          return getApiCall(apiKey.api, formText);
         })
         .then((data) => {
           postData("/postData", data);
