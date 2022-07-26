@@ -14,8 +14,16 @@ api_key = {
 
 const app = express();
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+//Error: request entity too large: https://stackoverflow.com/questions/19917401/error-request-entity-too-large
+app.use(
+  bodyParser.urlencoded({
+    limit: "50mb",
+    extended: true,
+    parameterLimit: 50000,
+  })
+);
+app.use(bodyParser.json({ limit: "50mb" }));
+
 app.use(express.static("dist"));
 
 app.get("/", function (req, res) {
