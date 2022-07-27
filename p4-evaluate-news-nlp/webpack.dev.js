@@ -8,12 +8,48 @@ module.exports = {
   mode: "development",
   devtool: "source-map",
   stats: "verbose",
+  output: {
+    libraryTarget: "var",
+    library: "Client",
+  },
+  devServer: {
+    port: process.env.PORT || 3001,
+    setup(app) {
+      const bodyParser = require("body-parser");
+      const cors = require("cors");
+      const dotenv = require("dotenv");
+      dotenv.config();
+      app.use(bodyParser.urlencoded({ extended: true }));
+      app.use(bodyParser.json());
+      app.use(cors());
+      api_key = { api: process.env.API_KEY };
+      articleData = {};
+
+      app.get("/getApiKey", function (req, res) {
+        res.send(api_key);
+      });
+
+      app.post("/postData", function (req, res) {
+        articleData = req.body;
+        console.log("Data posted to server");
+      });
+
+      app.get("/getData", function (req, res) {
+        console.log("Client recieved data");
+        res.send(articleData);
+      });
+    },
+  },
   module: {
     rules: [
       {
         test: "/.js$/",
         exclude: /node_modules/,
         loader: "babel-loader",
+      },
+      {
+        test: /\.scss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
     ],
   },
