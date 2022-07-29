@@ -103,3 +103,4 @@ function startGenerate() {
     })
     .then(() => updateUI());
 }
+
