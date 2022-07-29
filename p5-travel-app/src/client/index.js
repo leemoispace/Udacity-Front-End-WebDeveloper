@@ -5,7 +5,11 @@
 //import functions
 
 //import style
-import "./styles/index.scss";
+//import "bootstrap/dist/css/bootstrap.min.css";
+import "./styles/style.scss";
+import "bootstrap";
+
+const $ = require("jquery");
 
 //export functions
 
