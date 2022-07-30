@@ -1,3 +1,6 @@
+//Webpack config should contain at least 3 scripts, express server, build and test.
+//Additionally, dev server may be included.
+
 const path = require("path");
 const webpack = require("webpack");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
@@ -13,34 +16,7 @@ module.exports = {
     libraryTarget: "var",
     library: "Client",
   },
-  devServer: {
-    port: process.env.PORT || 3001,
-    setup(app) {
-      const bodyParser = require("body-parser");
-      const cors = require("cors");
-      const dotenv = require("dotenv");
-      dotenv.config();
-      app.use(bodyParser.urlencoded({ extended: true }));
-      app.use(bodyParser.json());
-      app.use(cors());
-      api_key = { api: process.env.API_KEY };
-      articleData = {};
-
-      app.get("/getApiKey", function (req, res) {
-        res.send(api_key);
-      });
-
-      app.post("/postData", function (req, res) {
-        articleData = req.body;
-        console.log("Data posted to server");
-      });
-
-      app.get("/getData", function (req, res) {
-        console.log("Client recieved data");
-        res.send(articleData);
-      });
-    },
-  },
+  devServer: {},
   module: {
     rules: [
       {
@@ -51,6 +27,10 @@ module.exports = {
       {
         test: /\.scss$/,
         use: ["style-loader", "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.(jpg|png|svg|jpg|gif|webp)$/,
+        loader: "file-loader",
       },
     ],
   },
