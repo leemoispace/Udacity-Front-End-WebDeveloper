@@ -1,3 +1,13 @@
+async function getPixabayKey() {
+  const response = await fetch("/getPixabayKey");
+  try {
+    const key = await response.json();
+    return key;
+  } catch (error) {
+    console.warn("ERORR", error);
+  }
+}
+// TODO: will remove later
 const pixabayKey = "16912025-2badedd82e75bb1b12192e65c";
 
 export async function getImageURL(city, country) {

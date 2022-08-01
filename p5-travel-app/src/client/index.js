@@ -8,7 +8,6 @@ import { getWeatherForecast } from "./js/weatherApi";
 import { getCity, getTripStart, getTripEnd } from "./js/form";
 
 //import style
-//import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/style.scss";
 import "bootstrap";
 const $ = require("jquery");
@@ -33,10 +32,16 @@ const handleSearch = async (e) => {
     geocity.latitude,
     geocity.longitude
   );
+
+  const countryInfo = await getCountryInfo(trip.countryCode);
+
+  trip.country = countryInfo.name;
+  trip.countryFlag = countryInfo.flag;
+
+  trip.image = await getImageURL(trip.city, trip.country);
 };
 
 //add event listeners
-/* Add event listeners */
 document
   .getElementById("button_search")
   .addEventListener("click", handleSearch);

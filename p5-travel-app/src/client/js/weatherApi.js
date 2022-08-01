@@ -1,3 +1,14 @@
+async function getWeatherKey() {
+  const response = await fetch("/getWeatherKey");
+  try {
+    const key = await response.json();
+    return key;
+  } catch (error) {
+    console.warn("ERORR", error);
+  }
+}
+// TODO: will remove later
+
 const weatherKey = "b3432a956d7b45a18ba374d67c837a2e";
 
 export async function getWeatherForecast(latitude, longitude) {
@@ -5,7 +16,6 @@ export async function getWeatherForecast(latitude, longitude) {
     "https://api.weatherbit.io/v2.0/forecast/daily?" +
     `lat=${latitude}&lon=${longitude}&key=` +
     weatherKey;
-  //console.log(endpoint);
   try {
     const res = await fetch("http://localhost:8080/forecast", {
       method: "POST",
@@ -17,6 +27,6 @@ export async function getWeatherForecast(latitude, longitude) {
       return data;
     }
   } catch (error) {
-    console.log(error);
+    console.warn(error);
   }
 }

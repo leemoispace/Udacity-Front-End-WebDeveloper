@@ -16,7 +16,19 @@ module.exports = {
     libraryTarget: "var",
     library: "Client",
   },
-  devServer: {},
+  devServer: {
+    compress: true,
+    historyApiFallback: true,
+    hot: true,
+    host: "localhost", // Defaults to `localhost`
+    port: 8081, // Defaults to 8080
+    proxy: {
+      "^/api/*": {
+        target: "http://localhost:8081/api/",
+        secure: false,
+      },
+    },
+  },
   module: {
     rules: [
       {
@@ -47,6 +59,7 @@ module.exports = {
       // Automatically remove all unused webpack assets on rebuild
       cleanStaleWebpackAssets: true,
       protectWebpackAssets: false,
+      cleanOnceBeforeBuildPatterns: [path.join(__dirname, "dist/**/*")],
     }),
     new WorkboxPlugin.GenerateSW({
       clientsClaim: true,

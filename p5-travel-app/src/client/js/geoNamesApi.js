@@ -1,3 +1,13 @@
+async function getUsername() {
+  const response = await fetch("/getUsername");
+  try {
+    const key = await response.json();
+    return key;
+  } catch (error) {
+    console.warn("ERORR", error);
+  }
+}
+// TODO: will remove later
 const username = "leemoispace";
 
 export async function getGeoCity(city) {
@@ -13,15 +23,13 @@ export async function getGeoCity(city) {
     if (res.ok) {
       const city = {};
       const data = await res.json();
-      //console.log(data);
       city.latitude = data.geonames[0].lat;
       city.longitude = data.geonames[0].lng;
       city.population = data.geonames[0].population;
       city.countryCode = data.geonames[0].countryCode;
-      console.log(city);
       return city;
     }
   } catch (error) {
-    console.log(error);
+    console.warn(error);
   }
 }
