@@ -1,12 +1,14 @@
+//https://restcountries.com/
 export async function getCountryInfo(countryCode) {
-  const endpoint = `https://restcountries.eu/rest/v2/alpha/${countryCode}`;
+  const endpoint = `https://restcountries.com/v3.1/alpha/${countryCode}`;
   try {
     const res = await fetch(endpoint);
     if (res.ok) {
       const data = await res.json();
+      console.log(data);
       return {
-        name: data.name,
-        flag: data.flag,
+        name: data[0].name.common,
+        flag: data[0].flag,
       };
     }
   } catch (error) {
