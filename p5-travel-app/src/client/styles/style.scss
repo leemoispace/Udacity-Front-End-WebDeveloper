@@ -1,7 +1,6 @@
 body {
   height: 100%;
 }
-
 .trips-container {
   width: 100%;
   display: flex;
@@ -34,7 +33,7 @@ body {
 .main {
   margin: 20px auto;
   width: 70%;
-  height: 75vh;
+  height: 35vh;
   border-radius: 100px;
   background-position: center;
   background-repeat: no-repeat;
@@ -72,6 +71,6 @@ body {
 }
 @media screen and (min-width: 576px) {
   .jumbotron {
-    padding: 8rem 2rem;
+    padding: 2rem 2rem;
   }
 }

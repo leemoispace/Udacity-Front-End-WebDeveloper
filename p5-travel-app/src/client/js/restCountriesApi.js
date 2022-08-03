@@ -5,7 +5,6 @@ export async function getCountryInfo(countryCode) {
     const res = await fetch(endpoint);
     if (res.ok) {
       const data = await res.json();
-      console.log(data);
       return {
         name: data[0].name.common,
         flag: data[0].flag,

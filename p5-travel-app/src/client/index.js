@@ -8,12 +8,13 @@ import { getWeatherForecast } from "./js/weatherApi";
 import { getCity, getTripStart, getTripEnd } from "./js/form";
 import { showModal, recentTrip } from "./js/model";
 import { getCountryInfo } from "./js/restCountriesApi";
+import { getImageURL } from "./js/pixabayApi";
 
 //import style
-import "./styles/style.scss";
-// import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap";
 const $ = require("jquery");
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./styles/style.scss";
+import "bootstrap";
 
 const trip = {};
 
@@ -35,6 +36,7 @@ const handleSearch = async (e) => {
   trip.country = countryInfo.name;
   trip.countryFlag = countryInfo.flag;
   trip.image = await getImageURL(trip.city, trip.country);
+  console.log(trip);
   showModal(trip);
 };
 

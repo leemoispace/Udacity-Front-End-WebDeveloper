@@ -1,6 +1,6 @@
 import "bootstrap";
-
 const $ = require("jquery");
+
 import { countdown } from "./form";
 
 const recentTrip = (trip) => {
@@ -14,9 +14,6 @@ const recentTrip = (trip) => {
   const weather = getWeatherInfo(trip.weatherForecast, daysLeft, tripStart);
   const div = document.createElement("div");
   div.classList.add("col-md-4");
-  //section.appendChild(div);
-  document.querySelector(".trips-container").appendChild(div);
-
   div.innerHTML = `
   <div class="col-md-12">
   <div class="card mb-12">
@@ -29,9 +26,9 @@ const recentTrip = (trip) => {
 
       <div class="col-md-12">
         <div class="card-body">
-          <h4 class="card-title trip_title"><img src="${
-            trip.countryFlag
-          }" class="flag"> ${trip.city}, ${trip.country}</h4>
+          <h4 class="card-title trip_title">${trip.countryFlag} ${trip.city}, ${
+    trip.country
+  }</h4>
           <h6 class="mt-0">Departure:<span style="color:crimson"> ${tripStart}</span></h6>
           <h6 class="mt-0">Return:<span style="color:crimson">${tripEnd}</span> </h6>
           <h6 class="mt-0">Duration:<span style="color:crimson"> ${countdown(
@@ -55,6 +52,8 @@ const recentTrip = (trip) => {
  
   <div class="clearfix"></div>
   </div>`;
+
+  document.querySelector(".trips-container").appendChild(div);
 };
 
 const showModal = (trip) => {
@@ -64,7 +63,7 @@ const showModal = (trip) => {
   });
   document.querySelector(
     ".trip_title"
-  ).innerHTML = `<img src="${trip.countryFlag}" class="flag"> ${trip.city}, ${trip.country}`;
+  ).innerHTML = `${trip.countryFlag} ${trip.city}, ${trip.country}`;
 
   // Display city, dates and the duration
   document.querySelectorAll(
@@ -81,7 +80,6 @@ const showModal = (trip) => {
   )} days`;
 
   // Display trip images
-  // const imageURL = await getTripImageURL(images);
   document.querySelector(".images").setAttribute("src", trip.image);
 
   // Display the days left to trip
@@ -102,7 +100,6 @@ const getWeatherInfo = (weatherForecast, daysLeft, date) => {
     temperature: 0,
     summary: "",
   };
-
   weather.temperature = weatherForecast.data[daysLeft].temp;
   weather.summary = weatherForecast.data[daysLeft].weather.description;
   return weather;

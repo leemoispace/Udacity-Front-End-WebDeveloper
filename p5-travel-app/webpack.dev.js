@@ -21,7 +21,7 @@ module.exports = {
     historyApiFallback: true,
     hot: true,
     host: "localhost", // Defaults to `localhost`
-    port: 8081, // Defaults to 8080
+    port: 3000, // Defaults to 8080
     proxy: {
       "^/api/*": {
         target: "http://localhost:8081/api/",
@@ -33,12 +33,13 @@ module.exports = {
     rules: [
       {
         test: "/.js$/",
-        exclude: /node_modules/,
+        // exclude: /node_modules/,
         loader: "babel-loader",
       },
       {
-        test: /\.scss$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        test: /\.(scss|less|css)$/,
+        use: ["style-loader", "css-loader"],
+        // https://getbootstrap.com/docs/4.0/getting-started/webpack/
       },
       {
         test: /\.(jpg|png|svg|jpg|gif|webp)$/,
