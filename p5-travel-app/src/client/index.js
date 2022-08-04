@@ -1,7 +1,3 @@
-// At least one function should be imported.
-// At least one event listener should be imported.
-// styles referenced in html/css
-
 //import functions
 import { getGeoCity } from "./js/geoNamesApi";
 import { getWeatherForecast } from "./js/weatherApi";
@@ -16,6 +12,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/style.scss";
 import "bootstrap";
 
+//object with placeholder member value pairs
 const trip = {};
 
 //functions
@@ -36,7 +33,6 @@ const handleSearch = async (e) => {
   trip.country = countryInfo.name;
   trip.countryFlag = countryInfo.flag;
   trip.image = await getImageURL(trip.city, trip.country);
-  console.log(trip);
   showModal(trip);
 };
 
