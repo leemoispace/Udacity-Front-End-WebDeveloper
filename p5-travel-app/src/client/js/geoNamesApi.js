@@ -1,25 +1,16 @@
-async function getUsername() {
-  const response = await fetch("/getUsername");
-  try {
-    const key = await response.json();
-    return key;
-  } catch (error) {
-    console.warn("ERORR", error);
-  }
-}
-// TODO: will remove later
-const username = "leemoispace";
-
 export async function getGeoCity(city) {
-  const dataUrl =
+  const endpoint =
     "http://api.geonames.org/" +
     "searchJSON?formatted=true&q=" +
     city +
-    "&username=" +
-    username +
     "&style=full";
+
   try {
-    const res = await fetch(dataUrl);
+    const res = await fetch("http://localhost:8081/geo-name-locations", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ endpoint: endpoint }),
+    });
     if (res.ok) {
       const city = {};
       const data = await res.json();
