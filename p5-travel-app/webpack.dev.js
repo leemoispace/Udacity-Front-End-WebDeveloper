@@ -1,8 +1,12 @@
+//Webpack config should contain at least 3 scripts, express server, build and test.
+//Additionally, dev server may be included.
+
 const path = require("path");
 const webpack = require("webpack");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const WorkboxPlugin = require("workbox-webpack-plugin");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   entry: "./src/client/index.js",
@@ -14,43 +18,32 @@ module.exports = {
     library: "Client",
   },
   devServer: {
-    port: process.env.PORT || 3001,
-    setup(app) {
-      const bodyParser = require("body-parser");
-      const cors = require("cors");
-      const dotenv = require("dotenv");
-      dotenv.config();
-      app.use(bodyParser.urlencoded({ extended: true }));
-      app.use(bodyParser.json());
-      app.use(cors());
-      api_key = { api: process.env.API_KEY };
-      articleData = {};
-
-      app.get("/getApiKey", function (req, res) {
-        res.send(api_key);
-      });
-
-      app.post("/postData", function (req, res) {
-        articleData = req.body;
-        console.log("Data posted to server");
-      });
-
-      app.get("/getData", function (req, res) {
-        console.log("Client recieved data");
-        res.send(articleData);
-      });
+    compress: true,
+    historyApiFallback: true,
+    hot: true,
+    host: "localhost", // Defaults to `localhost`
+    port: 3000, // Defaults to 8080
+    proxy: {
+      "^/api/*": {
+        target: "http://localhost:8081/api/",
+        secure: false,
+      },
     },
   },
   module: {
     rules: [
       {
         test: "/.js$/",
-        exclude: /node_modules/,
         loader: "babel-loader",
       },
       {
-        test: /\.scss$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        test: /\.(scss|less|css)$/,
+        use: ["style-loader", "css-loader"],
+        // https://getbootstrap.com/docs/4.0/getting-started/webpack/
+      },
+      {
+        test: /\.(jpg|png|svg|jpg|gif|webp)$/,
+        loader: "file-loader",
       },
     ],
   },
@@ -67,10 +60,12 @@ module.exports = {
       // Automatically remove all unused webpack assets on rebuild
       cleanStaleWebpackAssets: true,
       protectWebpackAssets: false,
+      cleanOnceBeforeBuildPatterns: [path.join(__dirname, "dist/**/*")],
     }),
     new WorkboxPlugin.GenerateSW({
       clientsClaim: true,
       skipWaiting: true,
     }),
+    new Dotenv(),
   ],
 };
